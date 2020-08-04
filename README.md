@@ -46,3 +46,6 @@ https://medium.com/@daniel.carlier/how-to-build-a-simple-flask-restful-api-with-
 
 Flask project layout
 https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/
+
+Flask and mongodb + vagrant repo
+https://github.com/veerendra2/flask-mongodb-app/blob/master/Vagrantfile
