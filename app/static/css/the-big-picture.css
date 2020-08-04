@@ -1,0 +1,21 @@
+/*!
+ * Start Bootstrap - The Big Picture (https://startbootstrap.com/templates/the-big-picture)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-the-big-picture/blob/master/LICENSE)
+ */
+body {
+  background: url('https://images.pexels.com/photos/1030947/pexels-photo-1030947.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+search-bar {
+	opacity: 0.8;
+}
+
+transparent {
+	background: transparent !important;
+    border-color: transparent !important;
+}
