@@ -1,8 +1,6 @@
 # Flay
  > Flay helps you cook by putting 23,000 plus recipes at your fingertips. Flay provides a variety of curated recipes. Search by ingredients or recipe name.
 
-<img src="images/Homepage.png" align="center"/>
-
 ## What is this project about?
 
 This project imports a kaggle recipe dataset and breaks down the recipe by ingredients for better access.
