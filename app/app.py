@@ -62,5 +62,3 @@ def testRoute():
 if __name__ == '__main__':
     #loadDB()
     app.run(debug=True,host='0.0.0.0')
-
-from app import routes
