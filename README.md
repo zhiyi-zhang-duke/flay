@@ -49,3 +49,6 @@ https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/
 
 Flask and mongodb + vagrant repo
 https://github.com/veerendra2/flask-mongodb-app/blob/master/Vagrantfile
+
+Build a Flask app with Docker
+https://pythonise.com/series/learning-flask/building-a-flask-app-with-docker-compose
