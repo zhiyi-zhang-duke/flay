@@ -5,6 +5,8 @@ services:
     build:
       context: ../
       dockerfile: deployments/app/Dockerfile
+    volumes:
+      - "../app:/app"
     ports:
       - "5000:5000"
     stdin_open: true
