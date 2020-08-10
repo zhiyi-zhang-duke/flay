@@ -52,3 +52,6 @@ https://github.com/veerendra2/flask-mongodb-app/blob/master/Vagrantfile
 
 Build a Flask app with Docker
 https://pythonise.com/series/learning-flask/building-a-flask-app-with-docker-compose
+
+Composing a flask app line by line:
+https://medium.com/bitcraft/docker-composing-a-python-3-flask-app-line-by-line-93b721105777
