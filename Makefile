@@ -20,6 +20,15 @@ deploy:
 	#docker-compose -f deployments/docker-compose.yml up -d --force-recreate
 	docker-compose -f deployments/docker-compose.yml up
 
+## Apply the K8s manifests to your cluster
+apply:
+	$(eval $(minikube docker-env))
+	kubectl apply -f .k8s/
+
+## Port forward the flast app
+serve: apply
+	kubectl port-forward svc/flask-service 5000:80
+
 ## Prints help message
 help:
 	printf "\n${COLOR_YELLOW}${PROJECT}\n------\n${COLOR_RESET}"
