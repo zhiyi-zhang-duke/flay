@@ -11,10 +11,10 @@
   <title>Flay</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../static/css/the-big-picture.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/the-big-picture.css') }}" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -56,27 +56,30 @@
           <h1 class="mt-5">Welcome to Flay</h1>
           <p>Flay helps you cook by putting 23,000 plus recipes at your fingertips. Flay provides a variety of curated recipes. Search by ingredients or recipe name.</p>
           <!-- Search form -->
-          <form>
-            <div class="form-row">
-              <div class="col">
-                <input type="text" class="form-control search-bar" placeholder="Recipe">
-              </div>
-              <div class="col">
-                <input type="text" class="form-control search-bar" placeholder="Ingredients">
-              </div>
-              <button type="submit" class="btn btn-success transparent">
-                <span class="material-icons">search</span>
-              </button>
+          <form method="POST" action="/results">
+          <div class="form-row">
+            <div class="col">
+              <label for="recipe">Recipe:</label>
+              <input type="text" id="recipe" name="recipe" class="form-control search-bar" value="Recipe names i.e. chili">
             </div>
-          </form>         
+            <div class="col">
+              <label for="ingredient">Ingredient:</label>
+              <input type="text" id="ingredient" name="ingredient" class="form-control search-bar" value="Ingredients i.e. tomato">
+            </div>
+            <input id="submit" class="btn btn-primary transparent" type="submit"></input>
+          </div>
+          </form>
         </div>
       </div>
+      <p>
+<span class="icon-input-btn"><span class="glyphicon glyphicon-search"></span> <input type="submit" class="btn btn-default btn-xs" value=""></span>
+      </p>
     </div>
   </section>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="../static/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
 </body>
 

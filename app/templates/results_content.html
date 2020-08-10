@@ -1,0 +1,27 @@
+{% extends "flay_layout.html" %}
+
+{% block content %}
+
+<div class="container-lg center-container">
+  <!--<h1>Debug Info</h1>
+   <p>{{ result|pprint }}</p> -->
+  <h1>Results</h1>
+  <ul class="list-unstyled">
+    {% for recipe in result %}
+    <li class="media">
+      <a href="https://www.w3schools.com"><img class="mr-3" src="{{ url_for('static', filename='vendor/bootstrap/icons/egg.svg') }}" width="32" height="32" title="Bootstrap"></a>
+      <div class="media-body white-smoke">
+        <h5 class="mt-0 mb-1"><a href="/recipe/{{ recipe['id'] }}">{{ recipe['name'] }}</a></h5>
+        <p> Ingredients:
+        {% for ingredient in recipe['n_ingredients'] %}
+          {{ ingredient }}
+          {{ "," if not loop.last }}                 
+        {% endfor %}
+        </p>
+      </div>    
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock content %}

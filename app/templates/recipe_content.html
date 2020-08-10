@@ -1,0 +1,38 @@
+{% extends "flay_layout.html" %}
+
+{% block content %}
+
+<div class="container-lg center-container">
+  <br>
+  <div class="card w-100 h-100" style="width: 18rem;">
+    <div class="card-body">
+      <h3 class="card-title">{{ result[0]['name'] }}</h5>
+
+      <h5 class="card-subtitle mb-2 text-muted header-padding">Ingredients</h6>
+      <ul class="list-group list-group-flush">
+        {% for ingredient in result[0]['n_ingredients'] %}
+          <li class="list-group-item">{{ ingredient }}</li>
+        {% endfor %}
+      </ul>
+
+      <h5 class="card-subtitle mb-2 text-muted header-padding">Directions</h6>
+      <ul class="list-group list-group-flush">
+        {% for step in result[0]['description'] %}
+          <li class="list-group-item">{{ step }}</li>
+        {% endfor %}
+      </ul>
+
+      <h5 class="card-subtitle mb-2 text-muted header-padding">Tags</h6>
+      <p class="card-text">
+        {% for tag in result[0]['tags'] %}
+          {{ tag }}
+          {{ "," if not loop.last }}                 
+        {% endfor %}        
+      </p>
+      <a href="https://www.allrecipes.com/search/results/?wt={{ result[0]['name']|replace(' ', '%20') }}&sort=re" class="card-link">All Recipes</a>
+      <a href="https://www.foodnetwork.com/search/{{ result[0]['name']|replace(' ', '-') }}-" class="card-link">Food Network</a>
+    </div>
+  </div>   
+</div>
+
+{% endblock content %}

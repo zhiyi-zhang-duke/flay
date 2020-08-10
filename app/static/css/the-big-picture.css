@@ -11,11 +11,37 @@ body {
   -o-background-size: cover;
 }
 
-search-bar {
+.transparent {
+	background: transparent !important;
+    border-color: transparent !important;
+}
+
+.search-bar {
 	opacity: 0.8;
 }
 
-transparent {
-	background: transparent !important;
-    border-color: transparent !important;
+label[for="recipe"]
+{
+    visibility: hidden;
+    display: none;
+}
+
+label[for="ingredient"]
+{
+    visibility: hidden;
+    display: none;
+}
+
+.center-container {
+	height: 100vh;
+	background: white;
+	opacity: 0.8;
+}
+
+.white-smoke {
+	background: whitesmoke;
+}
+
+.header-padding {
+	padding: 5px;
 }
