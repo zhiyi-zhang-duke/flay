@@ -20,11 +20,10 @@ def loadDB():
     db_collection = db['recipe_data']
     #Uniqueness constraint for name, not necessary?
     # db_collection.createIndex( { "name": 1 }, { unique: true } )
-    if db_collection.count() == 0:
-        recipes = db_collection.recipes
-        loaded_recipes_list = loadRecipes()
-        for recipe in loaded_recipes_list:
-            recipes.insert_one(recipe)
+    recipes = db_collection.recipes
+    loaded_recipes_list = loadRecipes()
+    for recipe in loaded_recipes_list:
+        recipes.insert_one(recipe)
     print("Database loaded successfully!")
 
 def loadRecipes():
