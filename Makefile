@@ -35,6 +35,10 @@ serve: apply
 	kubectl wait --for=condition=available --timeout=600s deployment --all
 	kubectl port-forward svc/flask-service 5000:80
 
+## Cleanup the deployments
+cleanup:
+	kubectl delete -f .k8s/
+
 ## Prints help message
 help:
 	printf "\n${COLOR_YELLOW}${PROJECT}\n------\n${COLOR_RESET}"
