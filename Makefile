@@ -20,13 +20,19 @@ deploy:
 	#docker-compose -f deployments/docker-compose.yml up -d --force-recreate
 	docker-compose -f deployments/docker-compose.yml up
 
+## Build the flask-app image
+build:
+	$(eval $(minikube docker-env))
+	docker build . -f deployments/app/Dockerfile --tag flask-app
+
 ## Apply the K8s manifests to your cluster
-apply:
+apply: build
 	$(eval $(minikube docker-env))
 	kubectl apply -f .k8s/
 
 ## Port forward the flast app
 serve: apply
+	kubectl wait --for=condition=available --timeout=600s deployment --all
 	kubectl port-forward svc/flask-service 5000:80
 
 ## Prints help message
