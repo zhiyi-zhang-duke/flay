@@ -15,8 +15,8 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: central
-        image: ubuntu:latest
-        imagePullPolicy: Always
+        image: flask-app:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 5000
 ---
