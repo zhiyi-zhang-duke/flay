@@ -28,7 +28,9 @@ build:
 ## Apply the K8s manifests to your cluster
 apply: build
 	$(eval $(minikube docker-env))
-	kubectl apply -f .k8s/
+	kubectl apply -f .k8s/db.yaml
+	kubectl rollout status statefulset/mongodb-standalone
+	kubectl apply -f .k8s/app.yaml
 
 ## Port forward the flast app
 serve: apply
