@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<div class="container-lg center-container">
+<div class="container-lg center-container opaque-container">
   <!--<h1>Debug Info</h1>
    <p>{{ result|pprint }}</p> -->
   <h1>Results</h1>
-  <ul class="list-unstyled">
+  <ul class="list-unstyled ingredients-list">
     {% for recipe in result %}
     <li class="media">
       <a href="https://www.w3schools.com"><img class="mr-3" src="{{ url_for('static', filename='vendor/bootstrap/icons/egg.svg') }}" width="32" height="32" title="Bootstrap"></a>
