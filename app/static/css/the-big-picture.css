@@ -20,7 +20,7 @@ body {
 	opacity: 0.8;
 }
 
-label[for="recipe"]
+label[for="recipe"] 
 {
     visibility: hidden;
     display: none;
@@ -35,7 +35,11 @@ label[for="ingredient"]
 .center-container {
 	height: 100vh;
 	background: white;
-	opacity: 0.8;
+  overflow-y: auto;
+}
+
+.opaque-container {
+  opacity: 0.8;
 }
 
 .white-smoke {
@@ -44,4 +48,13 @@ label[for="ingredient"]
 
 .header-padding {
 	padding: 5px;
+}
+
+.ingredients-list {
+  font-size: small;
+}
+
+
+.card > h1 {
+  text-align: center;
 }

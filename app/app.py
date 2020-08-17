@@ -23,7 +23,20 @@ def loadDB():
     recipes = db_collection.recipes
     loaded_recipes_list = loadRecipes()
     for recipe in loaded_recipes_list:
+        #Old Insert
         recipes.insert_one(recipe)
+       #  filter = {}
+       #  filter["id"] = recipe["id"]
+
+       #  options={}
+       #  options["upsert"]=True
+
+       #  db_collection.update(   
+       #    filter,
+       #    recipe,
+       #    upsert=True
+       # );
+
     print("Database loaded successfully!")
 
 def loadRecipes():
@@ -58,6 +71,10 @@ RESOURCES
 def home():
     return render_template('index.html')
 
+@app.route("/about")
+def about():
+    return render_template('about.html')    
+
 @app.route("/recipe/<id>")
 def recipe(id):
     db_collection = db['recipe_data']
@@ -67,11 +84,6 @@ def recipe(id):
 
 @app.route("/results", methods=['GET','POST'])
 def results():
-    # Test request data
-    # print(request)
-    # request = {}
-    # request.method = 'POST'
-    # request.form = {'name': 'name', 'id': 'id', 'minutes': 'minutes', 'contributor_id': 'contributor_id', 'submitted': 'submitted', 'tags': 'tags', 'n_steps': 'nutrition', 'steps': 'n_steps', 'description': 'steps', 'ingredients': 'description', 'n_ingredients': 'ingredients'}, {'name': 'apple a day  milk shake', 'id': '5289', 'minutes': '0', 'contributor_id': '1533', 'submitted': '12/6/1999', 'tags': "['15-minutes-or-less', 'time-to-make', 'course', 'main-ingredient', 'cuisine', 'preparation', 'occasion', 'north-american', 'low-protein', '5-ingredients-or-less', 'beverages', 'fruit', 'american', 'easy', 'kid-friendly', 'dietary', 'low-sodium', 'shakes', 'low-calorie', 'low-in-something', 'apples', 'number-of-servings', 'presentation', 'served-cold', '3-steps-or-less']", 'n_steps': '[160.2, 10.0, 55.0, 3.0, 9.0, 20.0, 7.0]', 'steps': '4', 'description': "['combine ingredients in blender', 'cover and blend until smooth', 'sprinkle with ground cinnamon', 'makes about 2 cups']", 'ingredients': '', 'n_ingredients': "['milk', 'vanilla ice cream', 'frozen apple juice concentrate', 'apple']"}
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     if request.method == 'POST':
@@ -100,10 +112,22 @@ def results():
         result = recipes.find({})
     return render_template('results_content.html', result=result)
 
+@app.route("/all", methods=['GET','POST'])
+def all():
+    db_collection = db['recipe_data']
+    recipes = db_collection.recipes
+    if request.method == 'POST':
+        result = recipes.find( {} )
+        return render_template('results_content.html', result=result)
+    else:
+        result = recipes.find({})
+    return render_template('results_content.html', result=result)
+
 
 if __name__ == '__main__':
     loadDB()
     app.run(debug=True,host='0.0.0.0')
+    # app.run(host='0.0.0.0')
 
 #Useful things for reference
 #Skipping parsing of post request for now

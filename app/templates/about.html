@@ -35,7 +35,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
+            <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/all">All Recipes</a>
@@ -47,35 +47,44 @@
       </div>
     </div>
   </nav>
-  
+
   <!-- Page Content -->
-  <section>
-    <div class="container-lg">
-      <div class="row">
-        <div class="col-lg-12">
-          <h1 class="mt-5">Welcome to Flay</h1>
-          <p>Flay helps you cook by putting 23,000 plus recipes at your fingertips. Flay provides a variety of curated recipes. Search by ingredients or recipe name.</p>
-          <!-- Search form -->
-          <form method="POST" action="/results">
-          <div class="form-row">
-            <div class="col">
-              <label for="recipe">Recipe:</label>
-              <input type="text" id="recipe" name="recipe" class="form-control search-bar" value="Recipe names i.e. chili">
-            </div>
-            <div class="col">
-              <label for="ingredient">Ingredient:</label>
-              <input type="text" id="ingredient" name="ingredient" class="form-control search-bar" value="Ingredients i.e. tomato">
-            </div>
-            <input id="submit" class="btn btn-primary transparent" type="submit"></input>
-          </div>
-          </form>
+  <div class="container-lg center-container">
+    <br>
+    <div class="card w-100" style="width: 18rem;">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Technology Stack</h1>
+          <p>Flay is built on python flask. All recipe data is imported from Kaggle into Mongodb. The front end was made with Jinja and Twitter Bootstrap.</p>
+          <img src="{{ url_for('static', filename='img/Techstack.jpg') }}" alt="My technology stack">
         </div>
+      </div>  
+      <!-- Example row of columns -->
+      <h1>Orchestration</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="container">
+            <h2>Docker</h2>
+            <p>This project is configured to create a ubuntu image for the flask app with a shared /app folder for development and a mongodb image.</p>          
+            <img width="320" src="{{ url_for('static', filename='img/docker.png') }}" alt="My technology stack">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h2>Vagrant</h2>
+          <p>This project is also configured to create a vagrant image with the same config as docker, in case you'd rather use a VMWare provider.</p>
+          <img width="320" src="{{ url_for('static', filename='img/vagrant.png') }}" alt="My technology stack">
+       </div>
+        <div class="col-md-4">
+          <h2>Kubernetes</h2>
+          <p>This project contains yaml files for a kubernetes deployment. Why use three orchestration tools platforms? To show off.</p>
+          <img width="320" src="{{ url_for('static', filename='img/kubernetes.png') }}" alt="My technology stack">
+        </div>
+
       </div>
-      <p>
-<span class="icon-input-btn"><span class="glyphicon glyphicon-search"></span> <input type="submit" class="btn btn-default btn-xs" value=""></span>
-      </p>
+      <hr>
     </div>
-  </section>
+  </div> <!-- /container -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
@@ -84,3 +93,4 @@
 </body>
 
 </html>
+ 
