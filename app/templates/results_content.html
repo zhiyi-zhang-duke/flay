@@ -22,6 +22,10 @@
     </li>
     {% endfor %}
   </ul>
+  {% if skip != 0 %}
+  <a class="btn btn-primary" href="/all/{{ skip-100 }}" role="button">Previous 100</a>
+  {% endif %}
+  <a class="btn btn-primary btn-right" href="/all/{{ skip+100 }}" role="button">Next 100</a>
 </div>
 
 {% endblock content %}

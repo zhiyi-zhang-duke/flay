@@ -100,22 +100,19 @@ def results():
             collection_query['n_ingredients'] = rgx
             queries.append(collection_query)
         print(queries)
-        result = recipes.find( { "$and": queries } )
+        result = recipes.find( { "$and": queries } ).limit(100)
         return render_template('results_content.html', result=result)
     else:
         result = recipes.find({})
     return render_template('results_content.html', result=result)
 
-@app.route("/all", methods=['GET','POST'])
-def all():
+@app.route("/all/<skip>", methods=['GET','POST'])
+def all(skip):
+    skip = int(skip)
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
-    if request.method == 'POST':
-        result = recipes.find( {} )
-        return render_template('results_content.html', result=result)
-    else:
-        result = recipes.find({})
-    return render_template('results_content.html', result=result)
+    result = recipes.find({}).skip(skip).limit(100)
+    return render_template('results_content.html', result=result, skip=skip)
 
 
 if __name__ == '__main__':

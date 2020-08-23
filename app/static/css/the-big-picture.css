@@ -36,6 +36,15 @@ label[for="ingredient"]
 	height: 100vh;
 	background: white;
   overflow-y: auto;
+  padding-bottom: 65px;
+}
+
+.center-container > .btn-secondary {
+  padding: 5px;
+}
+
+.center-container > .btn-right {
+  float: right;
 }
 
 .opaque-container {
@@ -58,3 +67,4 @@ label[for="ingredient"]
 .card > h1 {
   text-align: center;
 }
+
