@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import pymongo
 from pymongo import MongoClient
+from progress.bar import Bar
 
 import io
 import csv
@@ -19,33 +20,25 @@ def loadDB():
     
     db_collection = db['recipe_data']
     #Uniqueness constraint for name, not necessary?
-    # db_collection.createIndex( { "name": 1 }, { unique: true } )
     recipes = db_collection.recipes
     loaded_recipes_list = loadRecipes()
+    bar = Bar('Processing', max=len(loaded_recipes_list))
     for recipe in loaded_recipes_list:
         #Old Insert
         recipes.insert_one(recipe)
-       #  filter = {}
-       #  filter["id"] = recipe["id"]
-
-       #  options={}
-       #  options["upsert"]=True
-
-       #  db_collection.update(   
-       #    filter,
-       #    recipe,
-       #    upsert=True
-       # );
-
+        bar.next()
+    bar.finish()
     print("Database loaded successfully!")
 
 def loadRecipes():
     recipe_data = []
 
     #Load recipes
-    csv_file = "./recipes_short.csv"
+    csv_file = "./recipes_medium.csv"
     rows = io.open(csv_file, "r", encoding="utf-8")
     reader = csv.reader(rows)
+    next(reader, None) #skip the header
+    
     for data in reader:
         recipe = {}
         recipe['name'] = data[0]
@@ -60,7 +53,8 @@ def loadRecipes():
         recipe['ingredients'] = data[9]
         recipe['n_ingredients'] = data[10].lstrip('[').rstrip(']').replace("'", "").split(',')
         recipe_data.append(recipe)
-    print(recipe_data)
+        
+    # print(recipe_data)
     return recipe_data
 
 """
