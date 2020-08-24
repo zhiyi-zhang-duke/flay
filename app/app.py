@@ -101,10 +101,10 @@ def results():
             queries.append(collection_query)
         print(queries)
         result = recipes.find( { "$and": queries } ).limit(100)
-        return render_template('results_content.html', result=result)
+        return render_template('results_content.html', result=result, skip=0)
     else:
         result = recipes.find({})
-    return render_template('results_content.html', result=result)
+    return render_template('results_content.html', result=result, skip=0)
 
 @app.route("/all/<skip>", methods=['GET','POST'])
 def all(skip):
