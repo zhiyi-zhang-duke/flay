@@ -38,7 +38,7 @@
             <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/all">Browse Recipes</a>
+            <a class="nav-link" href="/all/0">Browse Recipes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
@@ -49,9 +49,8 @@
   </nav>
 
   <!-- Page Content -->
-  <section>
-    {% block content %}{% endblock %}
-  </section>
+
+  {% block content %}{% endblock %}
 
   <!-- Bootstrap core JavaScript -->
   <script src="../static/vendor/jquery/jquery.min.js"></script>

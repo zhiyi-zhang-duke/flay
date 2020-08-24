@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app-front
+  template:
+    metadata:
+      labels:
+        app: flask-app-front
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: flay-app
+        image: flayacr.azurecr.io/flay-app:v2
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-front
+spec:
+  type: LoadBalancer  
+  ports:
+  - port: 5000
+  selector:
+    app: flask-app-front
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  serviceName: database
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: mongodb-standalone
+        image: mongo:4.4.0
+        ports:
+        - containerPort: 27017
+          name: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    app: mongodb-back

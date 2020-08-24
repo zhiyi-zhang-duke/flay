@@ -15,22 +15,22 @@ install: deploy
 ## Composes project using docker-compose
 deploy:
 	#docker-compose -f deployments/docker-compose.yml build --no-cache
-	docker-compose -f deployments/docker-compose.yml build
-	docker-compose -f deployments/docker-compose.yml down -v
+	docker-compose -f docker-compose.yml build
+	docker-compose -f docker-compose.yml down -v
 	#docker-compose -f deployments/docker-compose.yml up -d --force-recreate
-	docker-compose -f deployments/docker-compose.yml up
+	docker-compose -f docker-compose.yml up
 
 ## Build the flask-app image
 build:
 	$(eval $(minikube docker-env))
-	docker build . -f deployments/app/Dockerfile --tag flask-app
+	docker build . -f app/Dockerfile --tag flask-app
 
 ## Apply the K8s manifests to your cluster
 apply: build
 	$(eval $(minikube docker-env))
-	kubectl apply -f .k8s/db.yaml
+	kubectl apply -f k8s/db.yaml
 	kubectl rollout status statefulset/mongodb-standalone
-	kubectl apply -f .k8s/app.yaml
+	kubectl apply -f k8s/app.yaml
 
 ## Port forward the flast app
 serve: apply
@@ -39,7 +39,7 @@ serve: apply
 
 ## Cleanup the deployments
 cleanup:
-	kubectl delete -f .k8s/
+	kubectl delete -f k8s/
 
 ## Prints help message
 help:

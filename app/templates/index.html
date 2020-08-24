@@ -16,41 +16,42 @@
   <!-- Custom styles for this template -->
   <link href="{{ url_for('static', filename='css/the-big-picture.css') }}" rel="stylesheet">
 
+  <!-- Utility functions -->
+  <script src="{{ url_for('static', filename='js/func_util.js') }}"></script>
+
 </head>
 
 <body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
-    <div class="container">
-      <a class="navbar-brand" href="#">Cooking with Style</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/all">All Recipes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
   <!-- Page Content -->
   <section>
     <div class="container-lg">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <div class="container">
+          <a class="navbar-brand" href="#">Cooking with Style</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/all/0">All Recipes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>    
       <div class="row">
         <div class="col-lg-12">
           <h1 class="mt-5">Welcome to Flay</h1>
@@ -60,13 +61,13 @@
           <div class="form-row">
             <div class="col">
               <label for="recipe">Recipe:</label>
-              <input type="text" id="recipe" name="recipe" class="form-control search-bar" value="Recipe names i.e. chili">
+              <input type="text" id="recipe" name="recipe" class="form-control search-bar" value="Recipe names i.e. chili" onclick="clearRecipe()">
             </div>
             <div class="col">
               <label for="ingredient">Ingredient:</label>
-              <input type="text" id="ingredient" name="ingredient" class="form-control search-bar" value="Ingredients i.e. tomato">
+              <input type="text" id="ingredient" name="ingredient" class="form-control search-bar" value="Ingredients i.e. tomato" onclick="clearIngredient()">
             </div>
-            <input id="submit" class="btn btn-primary transparent" type="submit"></input>
+            <input id="submit" class="btn btn-primary transparent" type="submit" value="Search"></input>
           </div>
           </form>
         </div>
