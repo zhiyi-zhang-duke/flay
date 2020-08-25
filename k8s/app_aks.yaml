@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: flay-app
-        image: flayacr.azurecr.io/flay-app:v2
+        image: flayacr.azurecr.io/flay-redo_app:v3
         ports:
         - containerPort: 5000
 ---

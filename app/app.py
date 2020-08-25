@@ -31,6 +31,7 @@ def loadDB():
     print("Database loaded successfully!")
 
 def loadRecipes():
+    #To do: Get measurements for ingredients into recipe content page    
     recipe_data = []
 
     #Load recipes
@@ -78,6 +79,7 @@ def recipe(id):
 
 @app.route("/results", methods=['GET','POST'])
 def results():
+    #To do: Results page needs to preserve query for paginated content    
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     if request.method == 'POST':
@@ -125,10 +127,7 @@ if __name__ == '__main__':
 #flay   | ---- Request -----
 #flay   | ImmutableMultiDict([('recipe', 'Chili'), ('ingredient', 'Tomatoes')])
 #db.inventory.find( { item: { $in: [ /j/, /p/ ] } } )
-#db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } )
-#db.inventory.find( $or: [ { item: {"$regex" : "p"} }, { item: {"$regex" : "j"} } ] )
-#db.inventory.find( { $or: [ {"": { "$regex": "A" }}, {"ingredient": { "$regex": "Tomatoes" }} ] } )
 #db.inventory.find( $or: [ { item: {"$regex" : "p"} }, { item: {"$regex" : "j"} } ] )
 #db.inventory.find( { $or: [ { item: {"$regex" : "p"} }, { item: {"$regex" : "j"} } ] } )
 # 
-# recipes.find( { "$or": [{'recipe': {'$regex': 'Chili'}}, {'ingredient': {'$regex': 'Tomatoes'}}] } )
+# recipes.find( { "$and": [{'recipe': {'$regex': 'Chili'}}, {'ingredient': {'$regex': 'Tomatoes'}}] } )
