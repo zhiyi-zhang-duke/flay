@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect
 import pymongo
 from pymongo import MongoClient
 from progress.bar import Bar
+#Serialization
+import pickle
 
 import io
 import csv
@@ -11,6 +13,8 @@ import ast
 app = Flask(__name__)
 client = MongoClient("mongodb://db:27017")
 db = client.projectDB
+app.secret_key = 'flay'
+
 """ 
 HELPER FUNCTIONS
 """
@@ -77,11 +81,12 @@ def recipe(id):
     result = recipes.find({'id': id})
     return render_template('recipe_content.html', result=result)    
 
-@app.route("/results", methods=['GET','POST'])
-def results():
+@app.route("/results/<skip>", methods=['GET','POST'])
+def results(skip):
     #To do: Results page needs to preserve query for paginated content    
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
+    skip = int(skip)
     if request.method == 'POST':
         print("---- Request -----")
         print(request.form)
@@ -89,24 +94,31 @@ def results():
         recipe_searches = request.form['recipe'].split(",")
         ingredient_searches = request.form['ingredient'].split(",")
         queries = []
-        for term in recipe_searches:
-            collection_query = {}
-            rgx = {}
-            rgx['$regex']=term
-            collection_query['name'] = rgx
-            queries.append(collection_query)
-        for term in ingredient_searches:
-            collection_query = {}
-            rgx = {}
-            rgx['$regex']=term
-            collection_query['n_ingredients'] = rgx
-            queries.append(collection_query)
-        print(queries)
+        if recipe_searches:
+            for term in recipe_searches:
+                collection_query = {}
+                rgx = {}
+                rgx['$regex']=term
+                collection_query['name'] = rgx
+                queries.append(collection_query)
+        if ingredient_searches:
+            for term in ingredient_searches:
+                collection_query = {}
+                rgx = {}
+                rgx['$regex']=term
+                collection_query['n_ingredients'] = rgx
+                queries.append(collection_query)
+        #Save last query
+        session['lastQuery'] = queries
+        print("Last query was ", session['lastQuery'])
+        # print(queries)
         result = recipes.find( { "$and": queries } ).limit(100)
-        return render_template('results_content.html', result=result, skip=0)
+        return render_template('results_content.html', result=result, skip=skip, mode="results")
     else:
-        result = recipes.find({})
-    return render_template('results_content.html', result=result, skip=0)
+        queries = session['lastQuery']
+        result = recipes.find( { "$and": queries } ).skip(skip).limit(100)
+        #Paginate results
+    return render_template('results_content.html', result=result, skip=skip, mode="results")
 
 @app.route("/all/<skip>", methods=['GET','POST'])
 def all(skip):
@@ -114,7 +126,7 @@ def all(skip):
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     result = recipes.find({}).skip(skip).limit(100)
-    return render_template('results_content.html', result=result, skip=skip)
+    return render_template('results_content.html', result=result, skip=skip, mode="all")
 
 
 if __name__ == '__main__':

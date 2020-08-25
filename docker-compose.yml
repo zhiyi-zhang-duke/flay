@@ -2,6 +2,7 @@ version: "2"
 services:
   app:
     container_name: flay
+    restart: always
     build:
       context: ./
       dockerfile: app/Dockerfile
