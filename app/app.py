@@ -31,6 +31,7 @@ def loadDB():
     print("Database loaded successfully!")
 
 def loadRecipes():
+    #To do: Get measurements for ingredients into recipe content page
     recipe_data = []
 
     #Load recipes
@@ -78,6 +79,7 @@ def recipe(id):
 
 @app.route("/results", methods=['GET','POST'])
 def results():
+    #To do: Results page needs to preserve query for paginated content
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     if request.method == 'POST':
