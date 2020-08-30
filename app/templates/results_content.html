@@ -7,13 +7,13 @@
    <p>{{ result|pprint }}</p> -->
   <h1>Results</h1>
   <ul class="list-unstyled ingredients-list">
-    {% for recipe in result %}
+    {% for recipe in result %}  
     <li class="media">
       <a href="https://www.w3schools.com"><img class="mr-3" src="{{ url_for('static', filename='vendor/bootstrap/icons/egg.svg') }}" width="32" height="32" title="Bootstrap"></a>
       <div class="media-body white-smoke">
-        <h5 class="mt-0 mb-1"><a href="/recipe/{{ recipe['id'] }}">{{ recipe['name'] }}</a></h5>
+        <h5 class="mt-0 mb-1"><a href="/recipe/{{ recipe['_id'] }}">{{ recipe['name'] }}</a></h5>
         <p> Ingredients:
-        {% for ingredient in recipe['n_ingredients'] %}
+        {% for ingredient in recipe['ingredients'] %}
           {{ ingredient }}
           {{ "," if not loop.last }}                 
         {% endfor %}
@@ -23,7 +23,7 @@
     {% endfor %}
   </ul>
   {% if skip != 0 %}
-  <a class="btn btn-primary" href="/{{ mode }}/{{ skip-100 }}" role="button">Previous 100</a>
+  <a class="btn btn-primary" href="/{{ mode }}/{{ skip-200 }}" role="button">Previous 100</a>
   {% endif %}
   <a class="btn btn-primary btn-right" href="/{{ mode }}/{{ skip+100 }}" role="button">Next 100</a>
 </div>

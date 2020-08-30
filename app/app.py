@@ -2,6 +2,7 @@ from flask import Flask, session, render_template, request, redirect
 import pymongo
 from pymongo import MongoClient
 from progress.bar import Bar
+from bson.objectid import ObjectId
 #Serialization
 import pickle
 
@@ -25,16 +26,32 @@ def loadDB():
     db_collection = db['recipe_data']
     #Uniqueness constraint for name, not necessary?
     recipes = db_collection.recipes
-    loaded_recipes_list = loadRecipes()
+    #Insert kaggle dataset
+    loaded_recipes_list = loadKaggleRecipes()
     bar = Bar('Processing', max=len(loaded_recipes_list))
     for recipe in loaded_recipes_list:
-        #Old Insert
         recipes.insert_one(recipe)
         bar.next()
     bar.finish()
+
+    #Insert woks of life data
+    file_data = loadWOLRecipes()
+
+
+    print("Woks of life data size:")
+    print(len(file_data))
+    if isinstance(file_data, list):
+        print("Attempting insert...")
+        recipes.insert_many(file_data)
     print("Database loaded successfully!")
 
-def loadRecipes():
+#Integrating woks of life recipes from flay-scrapy project
+def loadWOLRecipes():
+    with open('wol_recipes1.json') as file:
+        file_data = json.load(file)
+    return file_data
+
+def loadKaggleRecipes():
     #To do: Get measurements for ingredients into recipe content page    
     recipe_data = []
 
@@ -47,16 +64,20 @@ def loadRecipes():
     for data in reader:
         recipe = {}
         recipe['name'] = data[0]
-        recipe['id'] = data[1]
+        # recipe['id'] = data[1]
         recipe['minutes'] = data[2]
+        recipe['contributor'] = ""
         recipe['contributor_id'] = data[3]
         recipe['submitted'] = data[4]
         recipe['tags'] = data[5].lstrip('[').rstrip(']').replace("'", "").split(',')
-        recipe['n_steps'] = data[6].lstrip('[').rstrip(']').replace("'", "").split(',')
-        recipe['steps'] = data[7]
-        recipe['description'] = data[8].lstrip('[').rstrip(']').replace("'", "").split(',')
-        recipe['ingredients'] = data[9]
-        recipe['n_ingredients'] = data[10].lstrip('[').rstrip(']').replace("'", "").split(',')
+        recipe['nutrition'] = data[6].lstrip('[').rstrip(']').replace("'", "").split(',')
+        recipe['n_steps'] = data[7]
+        recipe['steps'] = data[8].lstrip('[').rstrip(']').replace("'", "").split(',')
+        recipe['description'] = data[9]
+        recipe['ingredients'] = data[10].lstrip('[').rstrip(']').replace("'", "").split(',')
+        recipe['n_ingredients'] = data[11]
+        recipe['image'] = ""
+        recipe['recipeURL'] = ""
         recipe_data.append(recipe)
         
     # print(recipe_data)
@@ -78,12 +99,14 @@ def about():
 def recipe(id):
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
-    result = recipes.find({'id': id})
+    # oid = new ObjectId(id)
+    result = recipes.find_one({'_id': ObjectId(id)})
+    # print("Printing result:")
+    # print(result.explain())
     return render_template('recipe_content.html', result=result)    
 
 @app.route("/results/<skip>", methods=['GET','POST'])
 def results(skip):
-    #To do: Results page needs to preserve query for paginated content    
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     skip = int(skip)
@@ -106,7 +129,7 @@ def results(skip):
                 collection_query = {}
                 rgx = {}
                 rgx['$regex']=term
-                collection_query['n_ingredients'] = rgx
+                collection_query['ingredients'] = rgx
                 queries.append(collection_query)
         #Save last query
         session['lastQuery'] = queries
@@ -126,6 +149,7 @@ def all(skip):
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
     result = recipes.find({}).skip(skip).limit(100)
+    print(result.count())
     return render_template('results_content.html', result=result, skip=skip, mode="all")
 
 

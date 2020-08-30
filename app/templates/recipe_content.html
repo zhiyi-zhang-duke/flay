@@ -6,31 +6,31 @@
   <br>
   <div class="card w-100" style="width: 18rem;">
     <div class="card-body">
-      <h3 class="card-title">{{ result[0]['name'] }}</h5>
+      <h3 class="card-title">{{ result['name'] }}</h5>
 
       <h5 class="card-subtitle mb-2 text-muted header-padding">Ingredients</h6>
       <ul class="list-group list-group-flush">
-        {% for ingredient in result[0]['n_ingredients'] %}
+        {% for ingredient in result['ingredients'] %}
           <li class="list-group-item">{{ ingredient }}</li>
         {% endfor %}
       </ul>
 
       <h5 class="card-subtitle mb-2 text-muted header-padding">Directions</h6>
       <ul class="list-group list-group-flush">
-        {% for step in result[0]['description'] %}
+        {% for step in result['steps'] %}
           <li class="list-group-item">{{ step }}</li>
         {% endfor %}
       </ul>
 
       <h5 class="card-subtitle mb-2 text-muted header-padding">Tags</h6>
       <p class="card-text">
-        {% for tag in result[0]['tags'] %}
+        {% for tag in result['tags'] %}
           {{ tag }}
           {{ "," if not loop.last }}                 
         {% endfor %}        
       </p>
-      <a href="https://www.allrecipes.com/search/results/?wt={{ result[0]['name']|replace(' ', '%20') }}&sort=re" class="card-link">All Recipes</a>
-      <a href="https://www.foodnetwork.com/search/{{ result[0]['name']|replace(' ', '-') }}-" class="card-link">Food Network</a>
+      <a href="https://www.allrecipes.com/search/results/?wt={{ result['name']|replace(' ', '%20') }}&sort=re" class="card-link">All Recipes</a>
+      <a href="https://www.foodnetwork.com/search/{{ result['name']|replace(' ', '-') }}-" class="card-link">Food Network</a>
     </div>
   </div>   
 </div>
