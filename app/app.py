@@ -52,7 +52,7 @@ def loadWOLRecipes():
     return file_data
 
 def loadKaggleRecipes():
-    #To do: Get measurements for ingredients into recipe content page    
+    #To do: Add nutrition information formatting into recipe page
     recipe_data = []
 
     #Load recipes
@@ -63,7 +63,7 @@ def loadKaggleRecipes():
     
     for data in reader:
         recipe = {}
-        recipe['name'] = data[0]
+        recipe['name'] = data[0].title()
         # recipe['id'] = data[1]
         recipe['minutes'] = data[2]
         recipe['contributor'] = ""
@@ -99,10 +99,7 @@ def about():
 def recipe(id):
     db_collection = db['recipe_data']
     recipes = db_collection.recipes
-    # oid = new ObjectId(id)
     result = recipes.find_one({'_id': ObjectId(id)})
-    # print("Printing result:")
-    # print(result.explain())
     return render_template('recipe_content.html', result=result)    
 
 @app.route("/results/<skip>", methods=['GET','POST'])
@@ -152,6 +149,13 @@ def all(skip):
     print(result.count())
     return render_template('results_content.html', result=result, skip=skip, mode="all")
 
+#A useful route for checking the data of a recipe
+@app.route("/recipe/debug/<id>")
+def recipeDebug(id):
+    db_collection = db['recipe_data']
+    recipes = db_collection.recipes
+    result = recipes.find_one({'_id': ObjectId(id)})
+    return render_template('test_print.html', result=result)   
 
 if __name__ == '__main__':
     loadDB()

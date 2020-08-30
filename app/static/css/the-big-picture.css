@@ -47,6 +47,13 @@ label[for="ingredient"]
   float: right;
 }
 
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;  
+}
+
 .opaque-container {
   opacity: 0.8;
 }
