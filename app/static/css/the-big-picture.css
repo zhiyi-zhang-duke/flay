@@ -47,6 +47,13 @@ label[for="ingredient"]
   float: right;
 }
 
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;  
+}
+
 .opaque-container {
   opacity: 0.8;
 }
@@ -68,3 +75,12 @@ label[for="ingredient"]
   text-align: center;
 }
 
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+
+.icon-search {
+  padding: 5px;
+}
