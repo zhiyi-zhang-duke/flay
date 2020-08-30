@@ -75,3 +75,12 @@ label[for="ingredient"]
   text-align: center;
 }
 
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+
+.icon-search {
+  padding: 5px;
+}

@@ -22,10 +22,19 @@ HELPER FUNCTIONS
 
 def loadDB():
     print("Initializing mongodb client")
-    
     db_collection = db['recipe_data']
     #Uniqueness constraint for name, not necessary?
     recipes = db_collection.recipes
+
+    #Insert woks of life data
+    file_data = loadWOLRecipes()
+    print("Woks of life data size:")
+    print(len(file_data))
+    if isinstance(file_data, list):
+        print("Attempting insert...")
+        recipes.insert_many(file_data)
+    print("Database loaded successfully!")
+
     #Insert kaggle dataset
     loaded_recipes_list = loadKaggleRecipes()
     bar = Bar('Processing', max=len(loaded_recipes_list))
@@ -33,17 +42,6 @@ def loadDB():
         recipes.insert_one(recipe)
         bar.next()
     bar.finish()
-
-    #Insert woks of life data
-    file_data = loadWOLRecipes()
-
-
-    print("Woks of life data size:")
-    print(len(file_data))
-    if isinstance(file_data, list):
-        print("Attempting insert...")
-        recipes.insert_many(file_data)
-    print("Database loaded successfully!")
 
 #Integrating woks of life recipes from flay-scrapy project
 def loadWOLRecipes():
@@ -144,6 +142,7 @@ def results(skip):
 def all(skip):
     skip = int(skip)
     db_collection = db['recipe_data']
+    db_collection.find().sort( [('name' , -1)])
     recipes = db_collection.recipes
     result = recipes.find({}).skip(skip).limit(100)
     print(result.count())
