@@ -55,3 +55,6 @@ https://pythonise.com/series/learning-flask/building-a-flask-app-with-docker-com
 
 Composing a flask app line by line:
 https://medium.com/bitcraft/docker-composing-a-python-3-flask-app-line-by-line-93b721105777
+
+Responsive UIs
+https://v4-alpha.getbootstrap.com/layout/responsive-utilities/
