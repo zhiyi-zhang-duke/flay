@@ -158,15 +158,5 @@ def recipeDebug(id):
 
 if __name__ == '__main__':
     loadDB()
-    app.run(debug=True,host='0.0.0.0')
-    # app.run(host='0.0.0.0')
-
-#Useful things for reference
-#Skipping parsing of post request for now
-#flay   | ---- Request -----
-#flay   | ImmutableMultiDict([('recipe', 'Chili'), ('ingredient', 'Tomatoes')])
-#db.inventory.find( { item: { $in: [ /j/, /p/ ] } } )
-#db.inventory.find( $or: [ { item: {"$regex" : "p"} }, { item: {"$regex" : "j"} } ] )
-#db.inventory.find( { $or: [ { item: {"$regex" : "p"} }, { item: {"$regex" : "j"} } ] } )
-# 
-# recipes.find( { "$and": [{'recipe': {'$regex': 'Chili'}}, {'ingredient': {'$regex': 'Tomatoes'}}] } )
+    # app.run(debug=True,host='0.0.0.0')
+    app.run(host='0.0.0.0')
